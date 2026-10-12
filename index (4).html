@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sangita Thapaliya – Computer Engineer</title>
+<meta name="description" content="Portfolio of Sangita Thapaliya, computer engineer. Projects in algorithms, optimisation and web development.">
+<meta property="og:title" content="Sangita Thapaliya – Computer Engineer">
+<meta property="og:description" content="Projects in algorithms, optimisation and web development.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --a: #4f83ff; --b: #ffb938; --c: #2fd39a; --d: #ff5c8a;
+    --display: "Bricolage Grotesque", "Noto Sans Devanagari", "Segoe UI", system-ui, sans-serif;
+    --body: "Newsreader", "Noto Sans Devanagari", Georgia, "Times New Roman", serif;
+    --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+  }
+  [data-theme="dark"] {
+    --bg: #0e1230; --surface: rgba(255,255,255,.055); --surface-2: rgba(255,255,255,.09);
+    --border: rgba(255,255,255,.14); --text: #eef1ff; --muted: #a9b2d4; --dots: rgba(255,255,255,.07);
+    --glow: .22; --btn-bg: #eef1ff; --btn-fg: #0e1230;
+  }
+  [data-theme="light"] {
+    --bg: #f3f5fb; --surface: #ffffff; --surface-2: #e9edf7;
+    --border: #cfd6e6; --text: #14213d; --muted: #4b5a78; --dots: rgba(20,33,61,.09);
+    --glow: .14; --btn-bg: #14213d; --btn-fg: #f3f5fb;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  body {
+    margin: 0; color: var(--text); font-family: var(--body); font-size: 1.15rem; line-height: 1.65;
+    background:
+      radial-gradient(700px 500px at 8% -5%, color-mix(in srgb, var(--a) calc(var(--glow) * 100%), transparent), transparent 70%),
+      radial-gradient(600px 500px at 95% 8%, color-mix(in srgb, var(--d) calc(var(--glow) * 100%), transparent), transparent 70%),
+      radial-gradient(700px 600px at 85% 95%, color-mix(in srgb, var(--c) calc(var(--glow) * 100%), transparent), transparent 70%),
+      radial-gradient(600px 500px at 0% 90%, color-mix(in srgb, var(--b) calc(var(--glow) * 100%), transparent), transparent 70%),
+      var(--bg);
+    background-attachment: fixed;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: radial-gradient(var(--dots) 1.5px, transparent 1.6px); background-size: 26px 26px;
+    -webkit-mask-image: linear-gradient(to bottom, #000, transparent 85%); mask-image: linear-gradient(to bottom, #000, transparent 85%);
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--a); outline-offset: 3px; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+  p { margin: 0 0 1rem; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+
+  /* Scroll progress */
+  .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 40; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--a), var(--c), var(--b), var(--d)); }
+
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: color-mix(in srgb, var(--bg) 70%, transparent); border-bottom: 1px solid var(--border); }
+  .nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 4.2rem; font-family: var(--display); font-weight: 500; gap: 1rem; }
+  .nav .name { font-weight: 800; font-size: 1.1rem; letter-spacing: -.01em; white-space: nowrap; }
+  .nav ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
+  .nav ul a { text-decoration: none; color: var(--muted); padding: .25rem 0; border-bottom: 2px solid transparent; }
+  .nav ul a:hover { color: var(--text); }
+  .nav ul a[aria-current="true"] { color: var(--text); border-bottom-color: var(--a); }
+  .tools { display: flex; gap: .5rem; align-items: center; }
+  .pill { font: 500 .88rem var(--display); color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: .4rem .85rem; cursor: pointer; white-space: nowrap; }
+  .pill:hover { background: var(--surface-2); }
+  .pill.mono { font-family: var(--mono); font-size: .8rem; }
+  @media (max-width: 860px) { .nav ul { display: none; } }
+  @media (max-width: 520px) { .pill.mono { display: none; } }
+
+  /* Buttons */
+  .actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .btn { display: inline-block; font-family: var(--display); font-weight: 700; font-size: 1rem; padding: .85rem 1.5rem; border-radius: 999px; text-decoration: none; border: 2px solid var(--btn-bg); background: var(--btn-bg); color: var(--btn-fg); transition: transform .15s, box-shadow .15s; cursor: pointer; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px -6px color-mix(in srgb, var(--a) 70%, transparent); }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--border); }
+  .btn.ghost:hover { border-color: var(--text); }
+  .btn.small { padding: .5rem 1rem; font-size: .9rem; }
+
+  /* Hero */
+  .hero { padding: 4.5rem 0 5rem; display: grid; gap: 3rem; }
+  @media (min-width: 940px) { .hero { grid-template-columns: 1.05fr 1fr; align-items: center; } }
+  .role { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--mono); font-size: .88rem; color: var(--muted); border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: .35rem .9rem; margin: 0 0 1.5rem; }
+  .role i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); animation: pulse 2s infinite; }
+  @keyframes pulse { 50% { opacity: .4; } }
+  h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.6rem, 6vw, 4.8rem); line-height: 1.02; letter-spacing: -.03em; margin: 0 0 1.5rem; }
+  .lede { max-width: 38ch; font-size: 1.3rem; color: var(--muted); margin: 0 0 2.25rem; }
+
+  /* Code editor window */
+  .stage { position: relative; }
+  .stage::before { content: ""; position: absolute; inset: -18px; border-radius: 34px; background: conic-gradient(from 200deg, var(--a), var(--c), var(--b), var(--d), var(--a)); filter: blur(36px); opacity: .3; z-index: -1; }
+  .editor { border-radius: 16px; overflow: hidden; background: #0b0f26; border: 1px solid rgba(255,255,255,.14); box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+  .editor .bar { display: flex; align-items: center; gap: 1rem; padding: .7rem 1rem; background: rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.1); }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 11px; height: 11px; border-radius: 50%; }
+  .dots i:nth-child(1) { background: #ff5f57; } .dots i:nth-child(2) { background: #febc2e; } .dots i:nth-child(3) { background: #28c840; }
+  .file { font: 400 .8rem var(--mono); color: #9aa4cf; }
+  .code { padding: 1.1rem 1rem 1.3rem; font: 400 .92rem/1.85 var(--mono); color: #e8edf8; counter-reset: ln; overflow-x: auto; }
+  .line { white-space: pre; opacity: 0; transform: translateX(-6px); transition: opacity .3s, transform .3s; min-height: 1.85em; }
+  .line.show { opacity: 1; transform: none; }
+  .line::before { counter-increment: ln; content: counter(ln); display: inline-block; width: 1.6rem; margin-right: 1rem; text-align: right; color: #5b6491; }
+  .i1 { padding-left: 1.5rem; }
+  .code .c { color: #6b749c; } .code .k { color: #ff8fb1; } .code .v { color: #8fb4ff; } .code .n { color: #ffd479; }
+  .code .s { color: #7fe3b6; } .code .p { color: #9aa4cf; }
+  .caret { display: inline-block; width: 8px; height: 1.1em; background: #e8edf8; vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Sections */
+  section { padding: 4.5rem 0; }
+  .head { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.25rem; }
+  h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 4vw, 2.8rem); letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+  .sub { color: var(--muted); margin: .6rem 0 0; max-width: 52ch; }
+  h3 { font-family: var(--display); font-size: 1.35rem; letter-spacing: -.01em; margin: 0 0 .5rem; }
+
+  /* Filters */
+  .filters { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .chip { font: 500 .9rem var(--display); color: var(--muted); background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: .4rem .95rem; cursor: pointer; }
+  .chip:hover { color: var(--text); }
+  .chip[aria-pressed="true"] { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+
+  /* Project cards */
+  .projects { display: grid; gap: 1.5rem; }
+  @media (min-width: 760px) { .projects { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1020px) { .projects { grid-template-columns: repeat(3, 1fr); } }
+  .card { --accent: var(--a); --mx: 50%; --my: 0%; position: relative; display: flex; flex-direction: column; padding: 1.75rem; border-radius: 22px; background: var(--surface); border: 1px solid var(--border); overflow: hidden; transition: transform .2s, border-color .2s; }
+  .card::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .25s; background: radial-gradient(380px circle at var(--mx) var(--my), color-mix(in srgb, var(--accent) 30%, transparent), transparent 60%); }
+  .card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 70%, var(--border)); }
+  .card:hover::before { opacity: 1; }
+  .card::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--accent); }
+  .card > * { position: relative; }
+  .badge { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--accent); color: #0e1230; font: 800 1.3rem var(--display); margin-bottom: 1.25rem; }
+  .status { position: absolute !important; top: 1.5rem; right: 1.5rem; font: 500 .75rem var(--mono); color: var(--muted); border: 1px solid var(--border); border-radius: 999px; padding: .15rem .6rem; }
+  .card p { color: var(--muted); font-size: 1.05rem; flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0; margin: .5rem 0 1.25rem; list-style: none; }
+  .tags li { font: 400 .78rem var(--mono); color: var(--text); background: var(--surface-2); border-radius: 6px; padding: .2rem .55rem; }
+  .card.next { border-style: dashed; align-items: flex-start; justify-content: center; background: transparent; }
+  .card.next::after { display: none; }
+  .card.next .badge { background: transparent; border: 2px dashed var(--border); color: var(--muted); }
+
+  /* GitHub feed */
+  .repos { display: grid; gap: 1rem; }
+  @media (min-width: 760px) { .repos { grid-template-columns: repeat(2, 1fr); } }
+  .repo { display: block; text-decoration: none; padding: 1.25rem 1.4rem; border-radius: 16px; background: var(--surface); border: 1px solid var(--border); transition: border-color .2s, transform .2s; }
+  .repo:hover { border-color: var(--text); transform: translateY(-2px); }
+  .repo b { font: 700 1.05rem var(--mono); display: block; margin-bottom: .35rem; word-break: break-word; }
+  .repo span.d { display: block; color: var(--muted); font-size: 1rem; margin-bottom: .8rem; line-height: 1.5; }
+  .meta { display: flex; gap: 1rem; flex-wrap: wrap; font: 400 .8rem var(--mono); color: var(--muted); }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .4rem; background: var(--muted); }
+  .muted { color: var(--muted); }
+
+  /* About / skills */
+  .about { display: grid; gap: 2.5rem; }
+  @media (min-width: 940px) { .about { grid-template-columns: 1fr 1fr; } }
+  .skillset { display: grid; gap: 1.25rem; }
+  .skillset .tags { margin: .4rem 0 0; }
+  .facts { margin: 1.5rem 0 0; display: grid; grid-template-columns: 7.5rem 1fr; gap: .5rem 1rem; }
+  .facts dt { font-family: var(--display); font-weight: 500; color: var(--muted); }
+  .facts dd { margin: 0; }
+
+  /* Timeline */
+  .timeline { list-style: none; margin: 0; padding: 0 0 0 .5rem; border-left: 2px solid var(--border); }
+  .timeline li { position: relative; padding: 0 0 2.2rem 1.75rem; }
+  .timeline li::before { content: ""; position: absolute; left: -.5rem; top: .5rem; width: 14px; height: 14px; border-radius: 50%; background: var(--a); box-shadow: 0 0 0 4px var(--bg); }
+  .timeline li:nth-child(2)::before { background: var(--b); }
+  .timeline li:nth-child(3)::before { background: var(--c); }
+  .when { font: 400 .85rem var(--mono); color: var(--muted); }
+  .timeline p { color: var(--muted); margin: 0; }
+
+  /* Contact */
+  .contact { padding: 3rem; border-radius: 28px; background: var(--surface); border: 1px solid var(--border); position: relative; overflow: hidden; }
+  .contact::before { content: ""; position: absolute; inset: 0; background: conic-gradient(from 180deg at 100% 0%, color-mix(in srgb, var(--a) 22%, transparent), color-mix(in srgb, var(--d) 18%, transparent), transparent 40%); pointer-events: none; }
+  .contact > * { position: relative; }
+  .links { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.75rem; font-family: var(--display); font-weight: 500; }
+  footer { padding: 2.5rem 0 3rem; color: var(--muted); font-size: 1rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  @media (max-width: 600px) { .contact { padding: 1.75rem; } }
+
+  /* Command palette */
+  .palette { position: fixed; inset: 0; z-index: 50; display: grid; justify-items: center; align-content: start; padding-top: 14vh; background: rgba(5,8,25,.6); backdrop-filter: blur(4px); }
+  .palette[hidden] { display: none; }
+  .box { width: min(580px, 92vw); border-radius: 18px; background: var(--bg); border: 1px solid var(--border); box-shadow: 0 40px 80px -20px rgba(0,0,0,.6); overflow: hidden; }
+  .box input { width: 100%; padding: 1.1rem 1.25rem; font: 500 1.05rem var(--display); color: var(--text); background: transparent; border: 0; border-bottom: 1px solid var(--border); outline: none; }
+  .box ul { list-style: none; margin: 0; padding: .5rem; max-height: 50vh; overflow-y: auto; }
+  .box li { padding: .7rem .9rem; border-radius: 10px; font-family: var(--display); font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; gap: 1rem; }
+  .box li[aria-selected="true"] { background: var(--surface-2); }
+  .box li small { font: 400 .78rem var(--mono); color: var(--muted); }
+  .box .empty { padding: 1rem; color: var(--muted); font-family: var(--display); }
+
+  .toast { position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 60; background: var(--btn-bg); color: var(--btn-fg); font: 700 .95rem var(--display); padding: .7rem 1.2rem; border-radius: 999px; transition: opacity .2s, transform .2s; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <span class="name">Sangita Thapaliya</span>
+    <nav aria-label="Main"><ul id="navList">
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#github" data-i18n="nav.github">GitHub</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#background" data-i18n="nav.background">Background</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+    </ul></nav>
+    <div class="tools">
+      <button type="button" class="pill mono" id="openPalette" aria-label="Open command menu">Ctrl K</button>
+      <button type="button" class="pill" id="lang" aria-label="Change language">नेपाली</button>
+      <button type="button" class="pill" id="theme" aria-label="Switch colour theme">Light</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div>
+      <p class="role"><i></i><span data-i18n="hero.role">Computer engineer, open to opportunities</span></p>
+      <h1 data-i18n="hero.title">Computer engineer building useful, well-made software.</h1>
+      <p class="lede" data-i18n="hero.lede">I work on algorithms, web applications and clean code. Browse my projects below, or get in touch.</p>
+      <div class="actions">
+        <a class="btn" href="#projects" data-i18n="hero.cta1">See my projects</a>
+        <a class="btn ghost" href="#contact" data-i18n="hero.cta2">Get in touch</a>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="editor" role="img" aria-label="Profile summary written as JavaScript code">
+        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="file">profile.js</span></div>
+        <div class="code" id="code">
+          <div class="line"><span class="c">// who I am</span></div>
+          <div class="line"><span class="k">const</span> <span class="v">sangita</span> <span class="p">= {</span></div>
+          <!-- EDIT: update these lines -->
+          <div class="line i1"><span class="n">role</span><span class="p">:</span> <span class="s">"Computer Engineer"</span><span class="p">,</span></div>
+          <div class="line i1"><span class="n">location</span><span class="p">:</span> <span class="s">"Kathmandu, Nepal"</span><span class="p">,</span></div>
+          <div class="line i1"><span class="n">focus</span><span class="p">:</span> <span class="p">[</span><span class="s">"Algorithms"</span><span class="p">,</span> <span class="s">"Web"</span><span class="p">],</span></div>
+          <div class="line i1"><span class="n">openTo</span><span class="p">:</span> <span class="p">[</span><span class="s">"Internships"</span><span class="p">,</span> <span class="s">"Projects"</span><span class="p">],</span></div>
+          <div class="line"><span class="p">};</span></div>
+          <div class="line"><span class="v">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="v">sangita</span><span class="p">.</span><span class="n">openTo</span><span class="p">);</span><span class="caret"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="projects">
+    <div class="head">
+      <div>
+        <h2 data-i18n="projects.title">Projects</h2>
+        <p class="sub" data-i18n="projects.sub">Things I've built. New work gets added here as I finish it.</p>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filter projects"></div>
+    </div>
+    <div class="projects" id="projectList"></div>
+  </section>
+
+  <section id="github">
+    <div class="head">
+      <div>
+        <h2 data-i18n="gh.title">Latest on GitHub</h2>
+        <p class="sub" data-i18n="gh.sub">Loaded live from my GitHub account, so new repositories show up here automatically.</p>
+      </div>
+      <a class="btn ghost small" data-link="github" href="#" target="_blank" rel="noopener" data-i18n="gh.all">All repositories</a>
+    </div>
+    <div class="repos" id="repos"></div>
+  </section>
+
+  <section id="about">
+    <div class="about">
+      <div>
+        <h2 data-i18n="about.title">About</h2>
+        <p class="sub" style="max-width:none" data-i18n="about.text">I am a dedicated and aspiring computer engineering student with a strong interest in software development, artificial intelligence, and problem-solving. I am committed to continuously enhancing my technical skills and developing efficient, innovative solutions through practical projects and lifelong learning.</p>
+        <dl class="facts">
+          <dt data-i18n="about.focus">Focus</dt><dd data-i18n="about.focusV">Algorithms, web development</dd>
+          <dt data-i18n="about.based">Based in</dt><dd data-i18n="about.basedV">Kathmandu, Nepal</dd>
+          <dt data-i18n="about.open">Open to</dt><dd data-i18n="about.openV">Internships, projects, collaboration</dd>
+        </dl>
+      </div>
+      <div class="skillset">
+        <!-- EDIT: keep only what you can discuss confidently -->
+        <div><h3 data-i18n="skills.lang">Languages</h3><ul class="tags"><li>JavaScript</li><li>Python</li><li>C / C++</li><li>SQL</li></ul></div>
+        <div><h3 data-i18n="skills.web">Web</h3><ul class="tags"><li>React</li><li>Vite</li><li>HTML and CSS</li><li>Node.js</li></ul></div>
+        <div><h3 data-i18n="skills.cs">Computer science</h3><ul class="tags"><li>Algorithms</li><li>Data structures</li><li>Optimisation</li><li>Databases</li></ul></div>
+        <div><h3 data-i18n="skills.tools">Tools</h3><ul class="tags"><li>Git and GitHub</li><li>VS Code</li><li>Vercel</li><li>Linux</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="background">
+    <div class="head"><div>
+      <h2 data-i18n="bg.title">Background</h2>
+      <p class="sub" data-i18n="bg.sub">Education and experience, most recent first.</p>
+    </div></div>
+    <ol class="timeline">
+      <!-- EDIT: add your real institution, degree and dates -->
+      <li><span class="when">Year – Present</span><h3>Bachelor's in Computer Engineering</h3><p>Sagarmatha Engineering College</p></li>
+      <!-- <li><span class="when">Year – Year</span><h3>Internship, role or notable course</h3><p>What you worked on and what you learned.</p></li> -->
+    </ol>
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2 data-i18n="contact.title">Let's work together</h2>
+      <p class="sub" data-i18n="contact.sub">I'm open to internships, projects and collaboration. Email is the quickest way to reach me.</p>
+      <div class="actions" style="margin-top:1.75rem">
+        <a class="btn" data-link="email" href="#" data-i18n="contact.email">Email me</a>
+        <button type="button" class="btn ghost" id="copyEmail" data-i18n="contact.copy">Copy email address</button>
+        <a class="btn ghost" data-link="resume" href="#" data-i18n="contact.resume">Download resume</a>
+      </div>
+      <div class="links">
+        <a data-link="github" href="#" target="_blank" rel="noopener">GitHub</a>
+        <a data-link="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <span>© <span id="year"></span> Sangita Thapaliya</span>
+  <!-- <span data-i18n="footer.built">Built with HTML, CSS and JavaScript</span>-->
+</div></footer>
+
+<div class="palette" id="palette" hidden role="dialog" aria-modal="true" aria-label="Command menu">
+  <div class="box">
+    <input id="pInput" type="text" autocomplete="off" aria-label="Search commands">
+    <ul id="pList" role="listbox"></ul>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   1. YOUR DETAILS. Change these once and the whole site updates.
+   ============================================================ */
+var SITE = {
+  email: "reechathapaliya7@gmail.com",
+  githubUser: "reechathapaliya1221",
+  linkedin: "https://www.linkedin.com/in/sangita-thapaliya-b432a8389/",
+  resume: "CV.pdf"
+};
+
+/* ============================================================
+   2. YOUR PROJECTS. Copy a block to add a new project.
+   color: "a" blue, "b" amber, "c" green, "d" pink.
+   description_ne is the Nepali text (optional).
+   ============================================================ */
+var PROJECTS = [
+  {
+    title: "SA-Driven Exam Seat Assignment",
+    description: "Plans exam hall seating so students taking the same subject never sit next to each other, using simulated annealing to search the huge space of possible arrangements.",
+    description_ne: "परीक्षा हलमा एउटै विषय लिने विद्यार्थीहरू छेउछेउमा नपरून् भनेर सिट मिलाउँछ। सम्भावित व्यवस्थाहरूको विशाल सूचीमा सिमुलेटेड एनिलिङ प्रयोग गरेर उत्तम समाधान खोज्छ।",
+    tags: ["Algorithms", "React", "Vite"],
+    live: "https://sa-driven-exam-seat-assignment.vercel.app",
+    code: "https://github.com/reechathapaliya1221/SA-Driven--Exam-Seat-Assignment",
+    color: "a",
+    status: "Live"
+  }
+  /* Example of a second project (remove the slashes to use):
+  ,{
+    title: "Project name",
+    description: "One or two sentences about what it does and why.",
+    description_ne: "यो के गर्छ र किन भन्ने एक वा दुई वाक्य।",
+    tags: ["Python", "Data"],
+    live: "https://example.com",
+    code: "https://github.com/reechathapaliya1221/repo-name",
+    color: "c",
+    status: "In progress"
+  }
+  */
+];
+
+/* ============================================================
+   3. TEXT IN TWO LANGUAGES. en = English, ne = Nepali.
+   ============================================================ */
+var I18N = {
+  en: {
+    "nav.projects": "Projects", "nav.github": "GitHub", "nav.about": "About", "nav.background": "Background", "nav.contact": "Contact",
+    "hero.role": "Computer engineer, open to opportunities",
+    "hero.title": "Computer engineer building useful, well-made software.",
+    "hero.lede": "I work on algorithms, web applications and clean code. Browse my projects below, or get in touch.",
+    "hero.cta1": "See my projects", "hero.cta2": "Get in touch",
+    "projects.title": "Projects", "projects.sub": "Things I've built. New work gets added here as I finish it.",
+    "card.live": "Open live", "card.code": "View code",
+    "next.title": "More on the way", "next.text": "New projects will appear here. Follow along on GitHub.", "next.btn": "See GitHub",
+    "gh.title": "Latest on GitHub", "gh.sub": "Loaded live from my GitHub account, so new repositories show up here automatically.",
+    "gh.all": "All repositories", "gh.loading": "Loading repositories...", "gh.fail": "Couldn't load repositories right now. You can see them on GitHub.",
+    "gh.none": "No public repositories yet.", "gh.updated": "Updated", "gh.nodesc": "No description yet.",
+    "about.title": "About",
+    "about.text": "I am a dedicated and aspiring computer engineering student with a strong interest in software development, artificial intelligence, and problem-solving. I am committed to continuously enhancing my technical skills and developing efficient, innovative solutions through practical projects and lifelong learning.",
+    "about.focus": "Focus", "about.focusV": "Algorithms, web development", "about.based": "Based in", "about.basedV": "Kathmandu, Nepal",
+    "about.open": "Open to", "about.openV": "Internships, projects, collaboration",
+    "skills.lang": "Languages", "skills.web": "Web", "skills.cs": "Computer science", "skills.tools": "Tools",
+    "bg.title": "Background", "bg.sub": "Education and experience, most recent first.",
+    "contact.title": "Let's work together", "contact.sub": "I'm open to internships, projects and collaboration. Email is the quickest way to reach me.",
+    "contact.email": "Email me", "contact.copy": "Copy email address", "contact.resume": "Download resume",
+    "footer.built": "Built with HTML, CSS and JavaScript",
+    "pal.placeholder": "Type a command...", "pal.none": "No matching command",
+    "cmd.projects": "Go to Projects", "cmd.github": "Go to GitHub feed", "cmd.about": "Go to About", "cmd.background": "Go to Background", "cmd.contact": "Go to Contact",
+    "cmd.theme": "Switch light / dark theme", "cmd.lang": "Switch language (English / नेपाली)", "cmd.gh": "Open my GitHub profile", "cmd.email": "Copy my email address",
+    "toast.copied": "Email address copied", "theme.light": "Light", "theme.dark": "Dark", "lang.other": "नेपाली"
+  },
+  ne: {
+    "nav.projects": "परियोजनाहरू", "nav.github": "GitHub", "nav.about": "बारेमा", "nav.background": "पृष्ठभूमि", "nav.contact": "सम्पर्क",
+    "hero.role": "कम्प्युटर इन्जिनियर, नयाँ अवसरका लागि उपलब्ध",
+    "hero.title": "उपयोगी र राम्ररी बनाइएका सफ्टवेयर निर्माण गर्ने कम्प्युटर इन्जिनियर।",
+    "hero.lede": "म एल्गोरिदम, वेब एप्लिकेसन र सफा कोडमा काम गर्छु। तलका परियोजनाहरू हेर्नुहोस् वा मलाई सम्पर्क गर्नुहोस्।",
+    "hero.cta1": "मेरा परियोजनाहरू हेर्नुहोस्", "hero.cta2": "सम्पर्क गर्नुहोस्",
+    "projects.title": "परियोजनाहरू", "projects.sub": "मैले बनाएका कामहरू। नयाँ काम पूरा भएसँगै यहाँ थपिन्छ।",
+    "card.live": "लाइभ हेर्नुहोस्", "card.code": "कोड हेर्नुहोस्",
+    "next.title": "अझै आउँदैछ", "next.text": "नयाँ परियोजनाहरू यहाँ देखिनेछन्। GitHub मा पछ्याउनुहोस्।", "next.btn": "GitHub हेर्नुहोस्",
+    "gh.title": "GitHub का पछिल्ला काम", "gh.sub": "मेरो GitHub खाताबाट सिधै लोड हुन्छ, त्यसैले नयाँ रिपोजिटरी आफैँ देखिन्छ।",
+    "gh.all": "सबै रिपोजिटरी", "gh.loading": "रिपोजिटरी लोड हुँदैछ...", "gh.fail": "अहिले रिपोजिटरी लोड गर्न सकिएन। तपाईं GitHub मा हेर्न सक्नुहुन्छ।",
+    "gh.none": "अहिलेसम्म कुनै सार्वजनिक रिपोजिटरी छैन।", "gh.updated": "अपडेट", "gh.nodesc": "अहिलेसम्म विवरण छैन।",
+    "about.title": "मेरो बारेमा",
+    "about.text": "म एक समर्पित र महत्त्वाकांक्षी कम्प्युटर इन्जिनियरिङ विद्यार्थी हुँ, जसलाई सफ्टवेयर विकास, कृत्रिम बुद्धिमत्ता र समस्या समाधानमा गहिरो रुचि छ। व्यावहारिक परियोजना र निरन्तर सिकाइमार्फत आफ्ना प्राविधिक सीपहरू बढाउँदै कुशल र नवीन समाधानहरू विकास गर्न म प्रतिबद्ध छु।",
+    "about.focus": "क्षेत्र", "about.focusV": "एल्गोरिदम, वेब विकास", "about.based": "स्थान", "about.basedV": "काठमाडौं, नेपाल",
+    "about.open": "अवसर", "about.openV": "इन्टर्नसिप, परियोजना, सहकार्य",
+    "skills.lang": "भाषाहरू", "skills.web": "वेब", "skills.cs": "कम्प्युटर विज्ञान", "skills.tools": "उपकरणहरू",
+    "bg.title": "पृष्ठभूमि", "bg.sub": "शिक्षा र अनुभव, पछिल्लो पहिले।",
+    "contact.title": "सँगै काम गरौं", "contact.sub": "म इन्टर्नसिप, परियोजना र सहकार्यका लागि उपलब्ध छु। इमेल सबैभन्दा छिटो माध्यम हो।",
+    "contact.email": "इमेल पठाउनुहोस्", "contact.copy": "इमेल ठेगाना कपी गर्नुहोस्", "contact.resume": "रिज्युमे डाउनलोड गर्नुहोस्",
+    "footer.built": "HTML, CSS र JavaScript ले बनाइएको",
+    "pal.placeholder": "कमान्ड टाइप गर्नुहोस्...", "pal.none": "मिल्ने कमान्ड भेटिएन",
+    "cmd.projects": "परियोजनाहरूमा जानुहोस्", "cmd.github": "GitHub फिडमा जानुहोस्", "cmd.about": "बारेमा जानुहोस्", "cmd.background": "पृष्ठभूमिमा जानुहोस्", "cmd.contact": "सम्पर्कमा जानुहोस्",
+    "cmd.theme": "उज्यालो / अँध्यारो थिम बदल्नुहोस्", "cmd.lang": "भाषा बदल्नुहोस् (English / नेपाली)", "cmd.gh": "मेरो GitHub प्रोफाइल खोल्नुहोस्", "cmd.email": "मेरो इमेल ठेगाना कपी गर्नुहोस्",
+    "toast.copied": "इमेल ठेगाना कपी भयो", "theme.light": "उज्यालो", "theme.dark": "अँध्यारो", "lang.other": "English"
+  }
+};
+
+(function () {
+  var root = document.documentElement;
+  var lang = "en", repoData = null, activeTag = "All";
+
+  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; }
+  function link(text, href, cls) { var a = el("a", cls, text); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
+  function t(key) { return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
+  function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+
+  /* ---------- Your details into links ---------- */
+  var nodes = document.querySelectorAll("[data-link]");
+  Array.prototype.forEach.call(nodes, function (a) {
+    var k = a.getAttribute("data-link");
+    if (k === "email") {
+      // Opens Gmail compose in a new tab (works without a default mail app)
+      a.href = "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(SITE.email) +
+               "&su=" + encodeURIComponent("Hello from your portfolio");
+      a.target = "_blank";
+      a.rel = "noopener";
+    }
+    if (k === "github") a.href = "https://github.com/" + SITE.githubUser;
+    if (k === "linkedin") a.href = SITE.linkedin;
+    if (k === "resume") { a.href = SITE.resume; a.setAttribute("download", ""); }
+  });
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------- Toast ---------- */
+  var toastEl = document.getElementById("toast"), toastTimer;
+  function toast(msg) {
+    toastEl.textContent = msg; toastEl.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 1800);
+  }
+
+  /* ---------- Theme ---------- */
+  var themeBtn = document.getElementById("theme");
+  function setTheme(th) {
+    root.setAttribute("data-theme", th);
+    themeBtn.textContent = th === "dark" ? t("theme.light") : t("theme.dark");
+    store("theme", th);
+  }
+  function toggleTheme() { setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"); }
+  themeBtn.addEventListener("click", toggleTheme);
+
+  /* ---------- Language ---------- */
+  var langBtn = document.getElementById("lang");
+  function applyLang(l) {
+    lang = l; root.lang = l === "ne" ? "ne" : "en"; store("lang", l);
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n]"), function (n) { n.textContent = t(n.getAttribute("data-i18n")); });
+    langBtn.textContent = t("lang.other");
+    themeBtn.textContent = root.getAttribute("data-theme") === "dark" ? t("theme.light") : t("theme.dark");
+    document.getElementById("pInput").placeholder = t("pal.placeholder");
+    renderProjects(); renderRepos(); renderPalette();
+  }
+  function toggleLang() { applyLang(lang === "en" ? "ne" : "en"); }
+  langBtn.addEventListener("click", toggleLang);
+
+  /* ---------- Projects ---------- */
+  var list = document.getElementById("projectList"), filtersEl = document.getElementById("filters");
+  function card(p) {
+    var c = el("article", "card");
+    c.style.setProperty("--accent", "var(--" + (p.color || "a") + ")");
+    c.appendChild(el("div", "badge", p.title.charAt(0)));
+    if (p.status) c.appendChild(el("span", "status", p.status));
+    c.appendChild(el("h3", "", p.title));
+    c.appendChild(el("p", "", (lang === "ne" && p.description_ne) || p.description));
+    var ul = el("ul", "tags");
+    (p.tags || []).forEach(function (x) { ul.appendChild(el("li", "", x)); });
+    c.appendChild(ul);
+    var row = el("div", "actions");
+    if (p.live) row.appendChild(link(t("card.live"), p.live, "btn small"));
+    if (p.code) row.appendChild(link(t("card.code"), p.code, "btn small ghost"));
+    c.appendChild(row);
+    c.addEventListener("pointermove", function (e) {
+      var r = c.getBoundingClientRect();
+      c.style.setProperty("--mx", (e.clientX - r.left) + "px"); c.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+    return c;
+  }
+  function nextCard() {
+    var c = el("article", "card next");
+    c.appendChild(el("div", "badge", "+"));
+    c.appendChild(el("h3", "", t("next.title")));
+    c.appendChild(el("p", "", t("next.text")));
+    c.appendChild(link(t("next.btn"), "https://github.com/" + SITE.githubUser, "btn small ghost"));
+    return c;
+  }
+  function renderProjects() {
+    list.textContent = "";
+    PROJECTS.filter(function (p) { return activeTag === "All" || (p.tags || []).indexOf(activeTag) > -1; })
+      .forEach(function (p) { list.appendChild(card(p)); });
+    if (activeTag === "All") list.appendChild(nextCard());
+    Array.prototype.forEach.call(filtersEl.children, function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-tag") === activeTag)); });
+  }
+  (function buildFilters() {
+    var tags = [];
+    PROJECTS.forEach(function (p) { (p.tags || []).forEach(function (x) { if (tags.indexOf(x) < 0) tags.push(x); }); });
+    if (PROJECTS.length < 3) { filtersEl.style.display = "none"; return; }
+    ["All"].concat(tags).forEach(function (x) {
+      var b = el("button", "chip", x); b.type = "button"; b.setAttribute("data-tag", x);
+      b.addEventListener("click", function () { activeTag = x; renderProjects(); });
+      filtersEl.appendChild(b);
+    });
+  })();
+
+  /* ---------- Live GitHub feed ---------- */
+  var reposEl = document.getElementById("repos");
+  var LANG_COLORS = { JavaScript: "#f1e05a", TypeScript: "#3178c6", Python: "#3572a5", HTML: "#e34c26", CSS: "#563d7c", Java: "#b07219", "C++": "#f34b7d", C: "#9aa4b8", PHP: "#4f5d95" };
+  function renderRepos() {
+    reposEl.textContent = "";
+    if (repoData === null) { reposEl.appendChild(el("p", "muted", t("gh.loading"))); return; }
+    if (repoData === false) { reposEl.appendChild(el("p", "muted", t("gh.fail"))); return; }
+    if (!repoData.length) { reposEl.appendChild(el("p", "muted", t("gh.none"))); return; }
+    repoData.forEach(function (r) {
+      var a = el("a", "repo"); a.href = r.html_url; a.target = "_blank"; a.rel = "noopener";
+      a.appendChild(el("b", "", r.name));
+      a.appendChild(el("span", "d", r.description || t("gh.nodesc")));
+      var meta = el("div", "meta");
+      if (r.language) {
+        var l = el("span", ""); var d = el("i", "dot"); d.style.background = LANG_COLORS[r.language] || "var(--muted)";
+        l.appendChild(d); l.appendChild(document.createTextNode(r.language)); meta.appendChild(l);
+      }
+      meta.appendChild(el("span", "", "★ " + r.stargazers_count));
+      meta.appendChild(el("span", "", t("gh.updated") + " " + new Date(r.pushed_at).toLocaleDateString(lang === "ne" ? "ne-NP" : "en-GB", { year: "numeric", month: "short", day: "numeric" })));
+      a.appendChild(meta); reposEl.appendChild(a);
+    });
+  }
+  function loadRepos() {
+    renderRepos();
+    fetch("https://api.github.com/users/" + SITE.githubUser + "/repos?sort=pushed&per_page=12")
+      .then(function (r) { if (!r.ok) throw new Error("bad"); return r.json(); })
+      .then(function (data) { repoData = data.filter(function (r) { return !r.fork; }).slice(0, 6); renderRepos(); })
+      .catch(function () { repoData = false; renderRepos(); });
+  }
+
+  /* ---------- Copy email ---------- */
+  function copyEmail() {
+    function done() { toast(t("toast.copied")); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(SITE.email).then(done, done);
+    else {
+      var ta = document.createElement("textarea"); ta.value = SITE.email; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta); done();
+    }
+  }
+  document.getElementById("copyEmail").addEventListener("click", copyEmail);
+
+  /* ---------- Command palette (Ctrl+K or Cmd+K) ---------- */
+  var pal = document.getElementById("palette"), pInput = document.getElementById("pInput"), pList = document.getElementById("pList");
+  var sel = 0, shown = [], lastFocus = null;
+  function go(hash) { var n = document.querySelector(hash); if (n) n.scrollIntoView(); }
+  var COMMANDS = [
+    { k: "cmd.projects", hint: "#projects", run: function () { go("#projects"); } },
+    { k: "cmd.github", hint: "#github", run: function () { go("#github"); } },
+    { k: "cmd.about", hint: "#about", run: function () { go("#about"); } },
+    { k: "cmd.background", hint: "#background", run: function () { go("#background"); } },
+    { k: "cmd.contact", hint: "#contact", run: function () { go("#contact"); } },
+    { k: "cmd.theme", hint: "theme", run: toggleTheme },
+    { k: "cmd.lang", hint: "lang", run: toggleLang },
+    { k: "cmd.gh", hint: "github", run: function () { window.open("https://github.com/" + SITE.githubUser, "_blank", "noopener"); } },
+    { k: "cmd.email", hint: "email", run: copyEmail }
+  ];
+  function renderPalette() {
+    var q = pInput.value.trim().toLowerCase();
+    shown = COMMANDS.filter(function (c) { return !q || t(c.k).toLowerCase().indexOf(q) > -1 || c.hint.indexOf(q) > -1; });
+    if (sel >= shown.length) sel = 0;
+    pList.textContent = "";
+    if (!shown.length) { pList.appendChild(el("li", "empty", t("pal.none"))); return; }
+    shown.forEach(function (c, i) {
+      var li = el("li"); li.setAttribute("role", "option"); li.setAttribute("aria-selected", String(i === sel));
+      li.appendChild(el("span", "", t(c.k))); li.appendChild(el("small", "", c.hint));
+      li.addEventListener("click", function () { runCmd(c); });
+      li.addEventListener("mousemove", function () { sel = i; Array.prototype.forEach.call(pList.children, function (n, j) { n.setAttribute("aria-selected", String(j === i)); }); });
+      pList.appendChild(li);
+    });
+  }
+  function openPalette() { lastFocus = document.activeElement; pal.hidden = false; pInput.value = ""; sel = 0; renderPalette(); pInput.focus(); }
+  function closePalette() { pal.hidden = true; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+  function runCmd(c) { closePalette(); c.run(); }
+  document.getElementById("openPalette").addEventListener("click", openPalette);
+  if (/Mac|iPhone|iPad/.test(navigator.platform)) document.getElementById("openPalette").textContent = "⌘ K";
+  pal.addEventListener("click", function (e) { if (e.target === pal) closePalette(); });
+  pInput.addEventListener("input", function () { sel = 0; renderPalette(); });
+  document.addEventListener("keydown", function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); if (pal.hidden) openPalette(); else closePalette(); return; }
+    if (pal.hidden) return;
+    if (e.key === "Escape") closePalette();
+    else if (e.key === "ArrowDown") { e.preventDefault(); if (shown.length) { sel = (sel + 1) % shown.length; renderPalette(); } }
+    else if (e.key === "ArrowUp") { e.preventDefault(); if (shown.length) { sel = (sel - 1 + shown.length) % shown.length; renderPalette(); } }
+    else if (e.key === "Enter") { e.preventDefault(); if (shown[sel]) runCmd(shown[sel]); }
+  });
+
+  /* ---------- Scroll progress and active nav link ---------- */
+  var bar = document.getElementById("progress");
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = "scaleX(" + (h > 0 ? Math.min(window.scrollY / h, 1) : 0) + ")";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        Array.prototype.forEach.call(document.querySelectorAll("#navList a"), function (a) {
+          a.setAttribute("aria-current", String(a.getAttribute("href") === "#" + en.target.id));
+        });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    Array.prototype.forEach.call(document.querySelectorAll("main section"), function (s) { io.observe(s); });
+  }
+
+  /* ---------- Hero code window: lines appear one by one ---------- */
+  var lines = document.querySelectorAll("#code .line");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  Array.prototype.forEach.call(lines, function (ln, i) {
+    if (reduce) ln.classList.add("show"); else setTimeout(function () { ln.classList.add("show"); }, 350 + i * 170);
+  });
+
+  /* ---------- Start ---------- */
+  var savedTheme = load("theme"); setTheme(savedTheme === "light" ? "light" : "dark");
+  applyLang(load("lang") === "ne" ? "ne" : "en");
+  loadRepos();
+})();
+</script>
+</body>
+</html>
